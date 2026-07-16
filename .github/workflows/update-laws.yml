@@ -1,0 +1,49 @@
+name: 每週同步法規異動日期
+
+on:
+  schedule:
+    # 每週一 台灣時間 08:00（UTC 00:00）
+    - cron: "0 0 * * 1"
+  workflow_dispatch: {}   # 允許手動觸發（首次部署後先手動跑一次）
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 下載全國法規資料庫全庫 JSON
+        run: |
+          curl -sL --retry 3 --retry-delay 10 \
+            -A "Mozilla/5.0 (osh-law-map weekly sync; contact via repo issues)" \
+            -o chlaw.zip "https://law.moj.gov.tw/api/ch/law/json"
+          unzip -o chlaw.zip
+          # 解壓後的檔名可能是 ChLaw.json（大小寫依官方為準），統一處理
+          CHLAW=$(ls -1 | grep -i '^chlaw.*\.json$' | head -n 1)
+          echo "CHLAW_FILE=$CHLAW" >> "$GITHUB_ENV"
+          echo "解壓得到：$CHLAW"
+
+      - name: 比對並更新異動日期
+        run: node scripts/update-laws.mjs "$CHLAW_FILE"
+
+      - name: 清理暫存檔
+        run: rm -f chlaw.zip "$CHLAW_FILE"
+
+      - name: 提交變更（有異動才 commit）
+        run: |
+          git config user.name "law-sync-bot"
+          git config user.email "actions@github.com"
+          git add laws.json index.html
+          if git diff --cached --quiet; then
+            echo "本週無異動，不建立 commit"
+          else
+            git commit -m "chore: 同步法規異動日期 $(date +%Y-%m-%d)"
+            git push
+          fi

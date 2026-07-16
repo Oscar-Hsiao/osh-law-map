@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>職業安全衛生法子法地圖（5M）｜法規異動追蹤</title>
+<meta name="description" content="以人機料法環五大面向整理職安法 50+ 部子法，每週自動同步全國法規資料庫最新異動日期。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF8; --card:#FFFFFF; --ink:#16233B; --muted:#6B7486; --line:#E4E2DB;
+  --man:#1D5FAD; --machine:#2E7D46; --material:#6A4C93; --method:#A9741B; --medium:#0E5F6E;
+  --hot:#D23B2E; --warm:#B8860B;
+  --serif:'Noto Serif TC',serif; --sans:'Noto Sans TC',sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+
+/* ── Header ── */
+header{border-bottom:3px solid var(--ink);background:var(--paper);padding:28px 20px 20px}
+.hwrap{max-width:1280px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.5rem,3.4vw,2.3rem);line-height:1.25;margin:6px 0 4px}
+h1 .m5{color:var(--hot)}
+.sub{color:var(--muted);font-size:.92rem;max-width:44em}
+.statbar{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline;margin-top:16px}
+.stat{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.stat b{font-size:1.15rem;color:var(--ink);font-weight:600;margin-right:2px}
+.stat.sync b{color:var(--hot)}
+.searchbox{margin-left:auto;position:relative}
+.searchbox input{font-family:var(--sans);font-size:.9rem;padding:8px 12px 8px 34px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);width:min(280px,72vw);border-radius:2px}
+.searchbox input:focus{outline:3px solid rgba(29,95,173,.35);outline-offset:1px}
+.searchbox::before{content:"⌕";position:absolute;left:10px;top:50%;transform:translateY(-56%);font-size:1.05rem;color:var(--muted)}
+
+/* ── 異動雷達 ── */
+.radar{max-width:1280px;margin:18px auto 0;padding:0 20px}
+.radar-box{border:1.5px solid var(--ink);background:var(--card);border-radius:3px;overflow:hidden}
+.radar-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(0deg,rgba(210,59,46,.05),rgba(210,59,46,.05))}
+.pulse{width:9px;height:9px;border-radius:50%;background:var(--hot);position:relative;flex:none}
+.pulse::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--hot);animation:ping 1.8s ease-out infinite;opacity:.7}
+@keyframes ping{0%{transform:scale(.5);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+.radar-head strong{font-family:var(--serif);font-size:.98rem;font-weight:600}
+.radar-head span{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.radar-list{display:flex;gap:0;overflow-x:auto;scrollbar-width:thin}
+.radar-item{flex:none;min-width:230px;padding:12px 16px;border-right:1px solid var(--line);text-decoration:none;color:inherit;display:block}
+.radar-item:hover{background:rgba(22,35,59,.04)}
+.radar-item .rname{font-size:.86rem;font-weight:500;display:block;margin-bottom:3px}
+.radar-item .rdate{font-family:var(--mono);font-size:.74rem;color:var(--hot);font-weight:600}
+.radar-item .rcat{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-left:8px}
+.radar-empty{padding:14px 16px;font-size:.85rem;color:var(--muted)}
+
+/* ── Pillars ── */
+main{max-width:1280px;margin:22px auto 30px;padding:0 20px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.statbar .searchbox{margin-left:0;width:100%}}
+.pillar{background:var(--card);border:1.5px solid var(--ink);border-top:5px solid var(--c);border-radius:3px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.pillar[data-c="man"]{--c:var(--man)} .pillar[data-c="machine"]{--c:var(--machine)}
+.pillar[data-c="material"]{--c:var(--material)} .pillar[data-c="method"]{--c:var(--method)}
+.pillar[data-c="medium"]{--c:var(--medium)}
+.p-head{padding:14px 14px 10px;border-bottom:1px solid var(--line);position:relative}
+.p-glyph{position:absolute;right:6px;top:-14px;font-family:var(--serif);font-weight:900;font-size:4.6rem;line-height:1;color:var(--c);opacity:.1;pointer-events:none;user-select:none}
+.p-title{font-family:var(--serif);font-weight:900;font-size:1.18rem;color:var(--c)}
+.p-title small{font-family:var(--mono);font-weight:400;font-size:.68rem;color:var(--muted);margin-left:6px;letter-spacing:.05em}
+.p-desc{font-size:.76rem;color:var(--muted);margin-top:2px}
+.p-count{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-top:5px}
+.p-body{padding:6px 0 8px;flex:1}
+.grp{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--c);padding:9px 14px 3px;font-weight:600}
+.law{display:block;padding:8px 14px;text-decoration:none;color:inherit;border-left:3px solid transparent}
+a.law:hover{background:rgba(22,35,59,.045);border-left-color:var(--c)}
+.law .lname{font-size:.84rem;font-weight:500;display:block}
+.law .lmeta{display:flex;align-items:center;gap:8px;margin-top:2px;flex-wrap:wrap}
+.ldate{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.ldate.d-hot{color:var(--hot);font-weight:600}
+.ldate.d-warm{color:var(--warm);font-weight:600}
+.badge{font-family:var(--mono);font-size:.62rem;padding:1px 6px;border-radius:2px;letter-spacing:.06em}
+.b-new{background:var(--hot);color:#fff}
+.b-grp{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.b-wait{background:transparent;color:var(--muted);border:1px dashed var(--muted)}
+.b-abo{background:var(--muted);color:#fff}
+.law.hidden,.grp.hidden{display:none}
+.p-foot{border-top:1px dashed var(--line);padding:9px 14px;font-size:.72rem;color:var(--muted)}
+.p-foot b{color:var(--c);font-weight:700}
+
+/* ── 5M flow & footer ── */
+.flow{max-width:1280px;margin:0 auto 26px;padding:0 20px}
+.flow-box{border:1.5px solid var(--ink);background:var(--ink);color:#EDEBE4;border-radius:3px;padding:13px 18px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.8rem}
+.flow-box .ft{font-family:var(--serif);font-weight:600;font-size:.9rem;margin-right:6px}
+.flow-box .step{font-family:var(--mono);font-size:.74rem;opacity:.92}
+.flow-box .arr{opacity:.45}
+footer{border-top:1px solid var(--line);padding:16px 20px 30px;max-width:1280px;margin:0 auto;font-size:.74rem;color:var(--muted);line-height:1.7}
+footer a{color:var(--muted)}
+.noscript{padding:20px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="eyebrow">Occupational Safety &amp; Health Law Registry · 每週自動同步</div>
+    <h1>職業安全衛生法子法地圖 <span class="m5">5M</span></h1>
+    <p class="sub">以「人・機・料・法・環」五大面向整理職安法體系 50+ 部子法。異動日期每週自動同步全國法規資料庫，紅點代表 90 天內修正發布的法規。</p>
+    <div class="statbar">
+      <span class="stat"><b id="st-total">–</b>部收錄</span>
+      <span class="stat"><b id="st-hot">–</b>部 90 天內異動</span>
+      <span class="stat sync">同步於 <b id="st-sync">尚未同步</b></span>
+      <span class="searchbox"><input id="q" type="search" placeholder="搜尋法規名稱…" aria-label="搜尋法規名稱"></span>
+    </div>
+  </div>
+</header>
+
+<section class="radar" aria-label="近期異動法規">
+  <div class="radar-box">
+    <div class="radar-head"><span class="pulse" aria-hidden="true"></span><strong>異動雷達</strong><span>最近 365 天內修正發布，由新至舊</span></div>
+    <div class="radar-list" id="radar"></div>
+  </div>
+</section>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<section class="flow" aria-label="5M 整合管理循環">
+  <div class="flow-box">
+    <span class="ft">5M 整合管理・持續改善</span>
+    <span class="step">辨識危害</span><span class="arr">→</span>
+    <span class="step">評估風險</span><span class="arr">→</span>
+    <span class="step">控制風險</span><span class="arr">→</span>
+    <span class="step">執行與運作</span><span class="arr">→</span>
+    <span class="step">檢查與評估</span><span class="arr">→</span>
+    <span class="step">改善與精進</span>
+  </div>
+</section>
+
+<footer>
+  資料來源：<a href="https://law.moj.gov.tw/" target="_blank" rel="noopener">全國法規資料庫</a>（法務部）。本頁為職安法主要子法之彙整地圖，「彙整」標記者為相關規定之類別統稱；實際法規名稱、數量及效力以勞動部職業安全衛生署及全國法規資料庫公告為準。異動日期由排程自動更新，僅供快速參考，不構成法律意見。
+</footer>
+
+<noscript><div class="noscript">此工具需要啟用 JavaScript 才能顯示法規清單。</div></noscript>
+
+<script id="seed" type="application/json">{"updated":"2026-07-16T14:46:57.819Z","source":"全國法規資料庫（https://law.moj.gov.tw/）","note":"日期由 GitHub Actions 每週自動同步；matchType=grouping 為彙整類別，不比對單一法規","laws":[{"id":"man-01","category":"man","group":"教育與能力","name":"職業安全衛生教育訓練規則","matchType":"exact","amendDate":"20260625","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060010","abolished":false},{"id":"man-02","category":"man","group":"教育與能力","name":"特定對象及特定作業主管安全衛生教育訓練相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"man-03","category":"man","group":"健康與福祉","name":"勞工健康保護規則","matchType":"exact","amendDate":"20260626","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060022","abolished":false},{"id":"man-04","category":"man","group":"健康與福祉","name":"勞工健康服務專業機構管理規則","matchType":"exact","amendDate":"20260626","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060087","abolished":false},{"id":"man-05","category":"man","group":"健康與福祉","name":"勞工體格及健康檢查相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"man-06","category":"man","group":"健康與福祉","name":"女性勞工母性健康保護實施辦法","matchType":"exact","amendDate":"20240531","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060065","abolished":false},{"id":"man-07","category":"man","group":"職場友善","name":"職場霸凌防治措施準則","matchType":"exact","amendDate":"20260623","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060085","abolished":false},{"id":"man-08","category":"man","group":"職場友善","name":"地方主管機關受理最高負責人職場霸凌事件申訴處理辦法","matchType":"exact","amendDate":"20260623","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060086","abolished":false},{"id":"mac-01","category":"machine","group":null,"name":"機械設備器具監督管理辦法","matchType":"exact","amendDate":"20260625","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060063","abolished":false},{"id":"mac-02","category":"machine","group":null,"name":"機械設備器具安全標準","matchType":"exact","amendDate":"20220511","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060034","abolished":false},{"id":"mac-03","category":"machine","group":null,"name":"固定式起重機安全檢查構造標準","matchType":"exact","amendDate":"20140627","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0070022","abolished":false},{"id":"mac-04","category":"machine","group":null,"name":"移動式起重機安全檢查構造標準","matchType":"exact","amendDate":"20140627","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0070021","abolished":false},{"id":"mac-05","category":"machine","group":null,"name":"升降機安全檢查構造標準","matchType":"exact","amendDate":"20140627","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0070017","abolished":false},{"id":"mac-06","category":"machine","group":null,"name":"鍋爐及壓力容器安全相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"mac-07","category":"machine","group":null,"name":"高壓氣體勞工安全規則","matchType":"exact","amendDate":"20220914","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060030","abolished":false},{"id":"mac-08","category":"machine","group":null,"name":"危險性機械及設備安全管理相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"mac-09","category":"machine","group":null,"name":"動力衝剪機械安全規則","matchType":"exact","amendDate":null,"url":null,"abolished":false},{"id":"mac-10","category":"machine","group":null,"name":"手推刨床安全規則","matchType":"exact","amendDate":null,"url":null,"abolished":false},{"id":"mac-11","category":"machine","group":null,"name":"木材加工用圓盤鋸安全規則","matchType":"exact","amendDate":null,"url":null,"abolished":false},{"id":"mac-12","category":"machine","group":null,"name":"工業用機器人危害預防標準","matchType":"exact","amendDate":"20180214","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060025","abolished":false},{"id":"mat-01","category":"material","group":null,"name":"危害性化學品標示及通識規則","matchType":"exact","amendDate":"20181109","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060054","abolished":false},{"id":"mat-02","category":"material","group":null,"name":"優先管理化學品之指定及運作管理辦法","matchType":"exact","amendDate":"20240606","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060064","abolished":false},{"id":"mat-03","category":"material","group":null,"name":"危害性化學品評估及分級管理辦法","matchType":"exact","amendDate":"20141231","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060070","abolished":false},{"id":"mat-04","category":"material","group":null,"name":"新化學物質登記管理辦法","matchType":"exact","amendDate":"20250808","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060069","abolished":false},{"id":"mat-05","category":"material","group":null,"name":"特定化學物質危害預防標準","matchType":"exact","amendDate":"20210916","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060015","abolished":false},{"id":"mat-06","category":"material","group":null,"name":"有機溶劑中毒預防規則","matchType":"exact","amendDate":"20250514","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060017","abolished":false},{"id":"mat-07","category":"material","group":null,"name":"鉛中毒預防規則","matchType":"exact","amendDate":"20240613","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060018","abolished":false},{"id":"mat-08","category":"material","group":null,"name":"四烷基鉛中毒預防規則","matchType":"exact","amendDate":"20220629","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060019","abolished":false},{"id":"mat-09","category":"material","group":null,"name":"粉塵危害預防標準","matchType":"exact","amendDate":"20140625","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060021","abolished":false},{"id":"mat-10","category":"material","group":null,"name":"石綿危害預防標準","matchType":"exact","amendDate":null,"url":null,"abolished":false},{"id":"mat-11","category":"material","group":null,"name":"管制性化學品之指定及運作許可管理辦法","matchType":"exact","amendDate":"20141231","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060068","abolished":false},{"id":"met-01","category":"method","group":"管理制度","name":"職業安全衛生法施行細則","matchType":"exact","amendDate":"20260626","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060002","abolished":false},{"id":"met-02","category":"method","group":"管理制度","name":"職業安全衛生管理辦法","matchType":"exact","amendDate":"20260629","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060027","abolished":false},{"id":"met-03","category":"method","group":"管理制度","name":"職業安全衛生設施規則","matchType":"exact","amendDate":"20260630","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060009","abolished":false},{"id":"met-04","category":"method","group":"工程與承攬管理","name":"工程安全設計及整體工程統合管理辦法","matchType":"exact","amendDate":"20260630","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060088","abolished":false},{"id":"met-05","category":"method","group":"工程與承攬管理","name":"營造安全衛生設施標準","matchType":"exact","amendDate":"20260630","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060014","abolished":false},{"id":"met-06","category":"method","group":"工程與承攬管理","name":"承攬管理相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"met-07","category":"method","group":"風險管理與其他","name":"風險評估相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"met-08","category":"method","group":"風險管理與其他","name":"危險性工作場所審查及檢查辦法","matchType":"exact","amendDate":"20200717","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0070019","abolished":false},{"id":"met-09","category":"method","group":"風險管理與其他","name":"事故通報及調查相關辦法","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"met-10","category":"method","group":"風險管理與其他","name":"職業安全衛生管理計畫相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"met-11","category":"method","group":"風險管理與其他","name":"製程安全評估定期實施辦法","matchType":"exact","amendDate":"20200717","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060071","abolished":false},{"id":"met-12","category":"method","group":"風險管理與其他","name":"變更管理相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"med-01","category":"medium","group":null,"name":"勞工作業環境監測實施辦法","matchType":"exact","amendDate":"20260612","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060033","abolished":false},{"id":"med-02","category":"medium","group":null,"name":"職業安全衛生設施規則","matchType":"exact","amendDate":"20260630","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060009","abolished":false},{"id":"med-03","category":"medium","group":null,"name":"缺氧症預防規則","matchType":"exact","amendDate":"20140626","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060020","abolished":false},{"id":"med-04","category":"medium","group":null,"name":"高壓氣體勞工安全規則","matchType":"exact","amendDate":"20220914","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060030","abolished":false},{"id":"med-05","category":"medium","group":null,"name":"高溫作業勞工作息時間標準","matchType":"exact","amendDate":"20140701","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060007","abolished":false},{"id":"med-06","category":"medium","group":null,"name":"異常氣壓危害預防標準","matchType":"exact","amendDate":"20140625","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060026","abolished":false},{"id":"med-07","category":"medium","group":null,"name":"噪音危害防制相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"med-08","category":"medium","group":null,"name":"照明及採光相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"med-09","category":"medium","group":null,"name":"通風換氣相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"med-10","category":"medium","group":null,"name":"局限空間作業相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"med-11","category":"medium","group":null,"name":"人因性危害預防相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"med-12","category":"medium","group":null,"name":"工作場所危害因素暴露評估相關規定","matchType":"grouping","amendDate":null,"url":null,"abolished":false},{"id":"med-13","category":"medium","group":null,"name":"高架作業勞工保護措施標準","matchType":"exact","amendDate":"20140625","url":"https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0060029","abolished":false}]}</script>
+<script>
+(function(){
+  var CAT = {
+    man:     {zh:"人", en:"Man",      desc:"人的管理與保護", goal:"提升人員能力、促進身心健康、預防不法侵害"},
+    machine: {zh:"機", en:"Machine",  desc:"機械設備與器具安全", goal:"確保機械設備本質安全、預防機械災害"},
+    material:{zh:"料", en:"Material", desc:"化學品與危害物管理", goal:"掌握化學品危害、預防中毒火災與爆炸"},
+    method:  {zh:"法", en:"Method",   desc:"管理制度與作業方法", goal:"建立制度、落實管理、以系統方法控制風險"},
+    medium:  {zh:"環", en:"Medium",   desc:"作業環境與外部條件", goal:"提供安全健康的作業環境、預防環境性危害"}
+  };
+  var ORDER = ["man","machine","material","method","medium"];
+  var DAY = 86400000;
+
+  function parseDate(s){ // "1140630"(民國) or "20250630" or "2025-06-30"
+    if(!s) return null;
+    s = String(s).replace(/-/g,"");
+    var y,m,d;
+    if(s.length===7){ y=+s.slice(0,3)+1911; m=+s.slice(3,5); d=+s.slice(5,7); }
+    else if(s.length===8){ y=+s.slice(0,4); m=+s.slice(4,6); d=+s.slice(6,8); }
+    else return null;
+    var dt = new Date(y, m-1, d);
+    return isNaN(dt) ? null : dt;
+  }
+  function rocFmt(dt){ return (dt.getFullYear()-1911)+"."+String(dt.getMonth()+1).padStart(2,"0")+"."+String(dt.getDate()).padStart(2,"0"); }
+  function daysAgo(dt){ return Math.floor((Date.now()-dt.getTime())/DAY); }
+  function esc(s){ var d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
+
+  function render(data){
+    var laws = data.laws||[];
+    var grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    var hotCount = 0;
+
+    ORDER.forEach(function(cat){
+      var items = laws.filter(function(l){ return l.category===cat; });
+      if(!items.length) return;
+      var c = CAT[cat];
+      var pillar = document.createElement("section");
+      pillar.className = "pillar"; pillar.dataset.c = cat;
+      var html = '<div class="p-head"><div class="p-glyph" aria-hidden="true">'+c.zh+'</div>'
+        + '<div class="p-title">'+c.zh+' <small>'+c.en+'</small></div>'
+        + '<div class="p-desc">'+c.desc+'</div>'
+        + '<div class="p-count">'+items.length+' 部</div></div><div class="p-body">';
+      var lastGrp = null, idx = 0;
+      items.forEach(function(l){
+        if(l.group && l.group!==lastGrp){ html += '<div class="grp" data-grp="1">'+esc(l.group)+'</div>'; lastGrp = l.group; }
+        idx++;
+        var dt = parseDate(l.amendDate);
+        var meta = "";
+        if(l.abolished){ meta = '<span class="badge b-abo">已廢止</span>'; }
+        else if(l.matchType==="grouping"){ meta = '<span class="badge b-grp">彙整</span>'; }
+        else if(dt){
+          var ago = daysAgo(dt), cls = "ldate";
+          if(ago<=90){ cls+=" d-hot"; hotCount++; meta = '<span class="'+cls+'">'+rocFmt(dt)+' 修正</span><span class="badge b-new">新</span>'; }
+          else if(ago<=365){ cls+=" d-warm"; meta = '<span class="'+cls+'">'+rocFmt(dt)+' 修正</span>'; }
+          else{ meta = '<span class="'+cls+'">'+rocFmt(dt)+' 修正</span>'; }
+        } else { meta = '<span class="badge b-wait">待同步</span>'; }
+        var tag = l.url ? 'a' : 'div';
+        html += '<'+tag+' class="law"'+(l.url?' href="'+esc(l.url)+'" target="_blank" rel="noopener"':'')+' data-name="'+esc(l.name)+'">'
+          + '<span class="lname">'+idx+'. '+esc(l.name)+'</span>'
+          + '<span class="lmeta">'+meta+'</span></'+tag+'>';
+      });
+      html += '</div><div class="p-foot">目的：<b>'+c.goal+'</b></div>';
+      pillar.innerHTML = html;
+      grid.appendChild(pillar);
+    });
+
+    // stats
+    document.getElementById("st-total").textContent = laws.length;
+    document.getElementById("st-hot").textContent = hotCount;
+    if(data.updated){
+      var u = new Date(data.updated);
+      document.getElementById("st-sync").textContent = isNaN(u) ? data.updated : rocFmt(u);
+    }
+
+    // radar
+    var radar = document.getElementById("radar");
+    var recent = laws
+      .map(function(l){ return {l:l, dt:parseDate(l.amendDate)}; })
+      .filter(function(x){ return x.dt && !x.l.abolished && daysAgo(x.dt)<=365; })
+      .sort(function(a,b){ return b.dt-a.dt; })
+      .slice(0,12);
+    if(recent.length){
+      radar.innerHTML = recent.map(function(x){
+        var tag = x.l.url ? 'a' : 'div';
+        return '<'+tag+' class="radar-item"'+(x.l.url?' href="'+esc(x.l.url)+'" target="_blank" rel="noopener"':'')+'>'
+          + '<span class="rname">'+esc(x.l.name)+'</span>'
+          + '<span class="rdate">'+rocFmt(x.dt)+' 修正發布</span>'
+          + '<span class="rcat">'+CAT[x.l.category].zh+'</span></'+tag+'>';
+      }).join("");
+    } else {
+      radar.innerHTML = '<div class="radar-empty">尚無同步資料。首次排程執行後，近一年內修正的法規會顯示在這裡。</div>';
+    }
+  }
+
+  // search
+  document.getElementById("q").addEventListener("input", function(){
+    var q = this.value.trim();
+    document.querySelectorAll(".law").forEach(function(el){
+      el.classList.toggle("hidden", q!=="" && el.dataset.name.indexOf(q)===-1);
+    });
+    document.querySelectorAll(".pillar").forEach(function(p){
+      p.querySelectorAll(".grp").forEach(function(g){
+        var sib = g.nextElementSibling, any=false;
+        while(sib && !sib.dataset.grp){ if(sib.classList.contains("law") && !sib.classList.contains("hidden")) any=true; sib=sib.nextElementSibling; }
+        g.classList.toggle("hidden", !any);
+      });
+    });
+  });
+
+  // boot: seed first, then try live laws.json
+  var seed;
+  try{ seed = JSON.parse(document.getElementById("seed").textContent); }catch(e){ seed = {laws:[]}; }
+  render(seed);
+  fetch("laws.json", {cache:"no-store"}).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(render).catch(function(){ /* 離線或本機預覽時使用內嵌種子資料 */ });
+})();
+</script>
+</body>
+</html>
